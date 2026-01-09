@@ -60,11 +60,10 @@ public class Calculator<T extends  Number & Comparable<T>> {
         else throw new NoSuchElementException("결과 로그가 비어있습니다.");//빈 배열일 경우 에러 처리
     }
     //기준값보다 큰 결과값을 조회하는 함수
-    public void searchLog (T param) {
-        List<T> result = calcLog.stream()
+    public List<T> searchLog (T param) {
+        return calcLog.stream()
                 .filter(num -> num.compareTo(param) > 0) //compareTo를 사용하여 비교 후 참인 값만 filter
                 .toList();//리스트화
-        System.out.println("result: " + result); //출력
     }
 }
 
