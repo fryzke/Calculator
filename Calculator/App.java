@@ -1,23 +1,26 @@
 package Calculator;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+
+import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
 public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Calculator calc = new Calculator();
+        Calculator<Double> calc = new Calculator<Double>();
 
         String cmd = "";
         System.out.println("========계산기========");
         while (!cmd.equals("exit")) {
-            System.out.println("명령어를 입력하세요. 1. calc 2. print log  3.delete first log 4. exit");
+            System.out.println("명령어를 입력하세요. 1. calc 2. print log  3. delete first log 4. search 5. exit");
             cmd = scanner.nextLine();
             ArrayList<Double> resultLog;
             if (cmd.equals("calc")) {
-                System.out.print("계산식(양의 정수만 입력 가능): ");
+                System.out.print("계산식: ");
                 cmd = scanner.nextLine();
                 String[] formular = cmd.split(" ");
                 double result;
@@ -28,21 +31,16 @@ public class App {
                 }
 
                 try {
-                    int a = parseInt(formular[0]);
-                    int b = parseInt(formular[2]);
+                    double a = parseDouble(formular[0]);
+                    double b = parseDouble(formular[2]);
                     String operator = formular[1];
 
-                    if (a < 0 || b < 0) {
-                        System.out.println("error: 양의 정수만 계산 가능합니다.");
-                        continue;
-                    }
-                    result = calc.calculate(a, b, operator);
+                    Calculator.OperatorType op = Calculator.OperatorType.fromSymbol(operator);
+                    result = calc.calculate(a, b, op);
                     System.out.println("result = " + result);
                     calc.addLog(result);
 
-                } catch (NumberFormatException e) { //예외처리 블록
-                    System.out.println("error: 정수가 아닌 값은 입력할 수 없습니다.");
-                } catch (ArithmeticException | IllegalArgumentException e){
+                }catch (ArithmeticException | IllegalArgumentException e){ //예외처리 블록
                     System.out.println("error: " + e.getMessage());
                 }
             } else if (cmd.equals("print log")) {
@@ -57,8 +55,16 @@ public class App {
                 }catch (NoSuchElementException e){
                     System.out.println("error: " + e.getMessage());
                 }
+            }else if(cmd.equals("search")){
+                System.out.print("기준값을 입력하세요: ");
+                try {
+                    double param = scanner.nextDouble();
+                    calc.searchLog(param);
+                }catch (InputMismatchException e){
+                    System.out.println("error: 숫자만 입력하세요.");
+                }
             }else if (!cmd.equals("exit")) {
-                System.out.println("잘못된 입력입니다.");
+                System.out.println("error: 잘못된 입력입니다.");
             }
 
         }
