@@ -6,7 +6,6 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import static java.lang.Double.parseDouble;
-import static java.lang.Integer.parseInt;
 
 public class App {
     public static void main(String[] args) {
@@ -20,7 +19,7 @@ public class App {
             cmd = scanner.nextLine();
             ArrayList<Double> resultLog;
             if (cmd.equals("calc")) {
-                System.out.print("계산식: ");
+                System.out.print("계산식 ex) 1 + 2(공백구분): ");
                 cmd = scanner.nextLine();
                 String[] formular = cmd.split(" ");
                 double result;

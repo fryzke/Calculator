@@ -15,11 +15,11 @@ public class Calculator<T extends  Number & Comparable<T>> {
             return symbol;
         }
         public static OperatorType fromSymbol(String op){
-            for(OperatorType type : values()){
-                if(type.getSymbol().equals(op)){
-                    return type;
+            for(OperatorType type : values()){ //상수를 하나씩 순회
+                if(type.getSymbol().equals(op)){ //순회한 상수와 입력받은 op와 일치하는지 확인
+                    return type; //일치하면 해당 enum 상수 반환
                 }
-            }
+            }//만약 위에 정의한 문자와 다른 문자가 들어왔을 시에는 해당 오류 메시지를 날림.
             throw new IllegalArgumentException("지원하지 않는 연산자입니다.");
         }
     }
@@ -57,14 +57,14 @@ public class Calculator<T extends  Number & Comparable<T>> {
     // 결과값을 저장하는 컬렉션에 가장 처음 값을 삭제하는 함수
     public void deleteLog (){
         if(!calcLog.isEmpty())  calcLog.remove(0);
-        else throw new NoSuchElementException("결과 로그가 비어있습니다.");
+        else throw new NoSuchElementException("결과 로그가 비어있습니다.");//빈 배열일 경우 에러 처리
     }
     //기준값보다 큰 결과값을 조회하는 함수
     public void searchLog (T param) {
         List<T> result = calcLog.stream()
-                .filter(num -> num.compareTo(param) > 0)
-                .toList();
-        System.out.println("result: " + result);
+                .filter(num -> num.compareTo(param) > 0) //compareTo를 사용하여 비교 후 참인 값만 filter
+                .toList();//리스트화
+        System.out.println("result: " + result); //출력
     }
 }
 
