@@ -28,7 +28,7 @@ public class Calculator<T extends  Number & Comparable<T>> {
         double n1 = a.doubleValue();
         double n2 = b.doubleValue();
 
-        return (switch (op) {
+        double result =  (switch (op) {
             case ADD -> (n1 + n2);
             case SUBTRACT -> (n1 - n2);
             case MULTIPLY -> (n1 * n2);
@@ -40,6 +40,8 @@ public class Calculator<T extends  Number & Comparable<T>> {
                 yield (n1 / n2); //yield를 통해 switch 결과값 return
             }
         });
+
+        return Math.round(result* 1e12)/1e12; //부동 소수점 오류 임시 제거
     }
 
     //결과값을 컬렉션에 저장하는 함수
