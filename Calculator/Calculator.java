@@ -1,6 +1,7 @@
 package Calculator;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -58,11 +59,18 @@ public class Calculator<T extends  Number & Comparable<T>> {
     }
     // 결과값을 저장하는 컬렉션에 가장 처음 값을 삭제하는 함수
     public void deleteLog (){
-        if(!calcLog.isEmpty())  calcLog.remove(0);
-        else throw new NoSuchElementException("결과 로그가 비어있습니다.");//빈 배열일 경우 에러 처리
+        //배열이 비어있거나 null일 경우
+        if(calcLog == null || calcLog.isEmpty()) {//빈 배열일 경우 에러 처리
+            throw new NoSuchElementException("결과 로그가 비어있거나 존재하지 않습니다.");
+        }
+        calcLog.remove(0);
     }
     //기준값보다 큰 결과값을 조회하는 함수
     public List<T> searchLog (T param) {
+        if(calcLog == null || calcLog.isEmpty()){ //배열이 비어있거나 null일 경우
+            System.out.println("결과 로그가 비어있거나 존재하지 않습니다.");
+            return Collections.emptyList();
+        }
         return calcLog.stream()
                 .filter(num -> num.compareTo(param) > 0) //compareTo를 사용하여 비교 후 참인 값만 filter
                 .toList();//리스트화
