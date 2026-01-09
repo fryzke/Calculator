@@ -26,7 +26,7 @@ public class App {
                     int a = parseInt(formular[0]);
                     int b = parseInt(formular[2]);
                     String operator = formular[1];
-                    if (a <= 0 || b <= 0) {
+                    if (a < 0 || b < 0) {
                         System.out.println("error: 양의 정수만 계산 가능합니다.");
                         continue;
                     }
