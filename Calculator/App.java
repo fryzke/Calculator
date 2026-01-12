@@ -58,6 +58,7 @@ public class App {
                 System.out.print("기준값을 입력하세요: ");
                 try {
                     double param = scanner.nextDouble();
+                    scanner.nextLine(); //버퍼 비우기
                     System.out.println("result: " + calc.searchLog(param));
                 }catch (InputMismatchException e){
                     System.out.println("error: 숫자만 입력하세요.");
@@ -68,7 +69,7 @@ public class App {
 
         }
         System.out.println("========종 료========");
-
+        scanner.close();
 
     }
 }
